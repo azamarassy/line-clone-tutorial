@@ -1,7 +1,7 @@
 import React from 'react'
 import SignOut from "./SignOut";
 import SendMessage from './SendMessage';
-import { db } from "../firebase.js";
+import { db, auth } from "../firebase.js";
 import { useState, useEffect} from "react";
 import { collection, onSnapshot, query, orderBy, limit } from "firebase/firestore";
 
@@ -34,14 +34,13 @@ function Line() {
       <SignOut />
 
       <div className="msgs">
-
         {messages.map(({ id, text, photoURL, uid }) => (
           <div>
             <div
               key={id} //どのdivタグか特定できるように
-              // className={`msg ${
-              //   uid === auth.currentUser.uid ? "sent" : "received"
-              // }`}
+              className={`msg ${
+                uid === auth.currentUser.uid ? "sent" : "received"
+              }`}
             >
               <img src={photoURL} alt="" />
               <p>{text}</p>
